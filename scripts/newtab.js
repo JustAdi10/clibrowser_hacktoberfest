@@ -1939,14 +1939,40 @@ function focusCommandInput() {
   }
 }
 
+// Display ASCII banner
+function displayAsciiBanner() {
+  const terminal = document.querySelector('.terminal');
+  if (!terminal) return;
+  
+  const banner = document.createElement('div');
+  banner.className = 'command-output banner';
+  banner.style.whiteSpace = 'pre';
+  banner.innerHTML = `
+   _____ _      _____ ____                                     
+  / ____| |    |_   _|  _ \\                                    
+ | |    | |      | | | |_) |_ __ _____      _____  ___ _ __ 
+ | |    | |      | | |  _ <| '__/ _ \\ \\ /\\ / / __|/ _ \\ '__|
+ | |____| |____ _| |_| |_) | | | (_) \\ V  V /\\__ \\  __/ |   
+  \\_____|______|_____|____/|_|  \\___/ \\_/\\_/ |___/\\___|_|   
+                                                              
+  Type 'help' for available commands
+`;
+  terminal.insertBefore(banner, terminal.firstChild);
+}
+
 // Run when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
+    // First display the banner
+    displayAsciiBanner();
+    
+    // Then initialize the terminal
     init();
     setupTerminalHeader();
     focusCommandInput();
   });
 } else {
+  displayAsciiBanner();
   init();
   setupTerminalHeader();
   focusCommandInput();
